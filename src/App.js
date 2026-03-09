@@ -7,7 +7,7 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-        Hello Amazon! I'm <b>Kevin Kuk</b>, a CS student at UW Seattle.
+        Hello Amazon?? I'm <b>Kevin Kuk</b>, a CS student at UW Seattle.
         <br />
         Welcome to my AWS-powered portfolio!
         </p>
