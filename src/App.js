@@ -7,7 +7,9 @@ function App() {
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+        Hello Amazon! I'm <b>Kevin Kuk</b>, a CS student at UW Seattle.
+        <br />
+        Welcome to my AWS-powered portfolio!
         </p>
         <a
           className="App-link"
