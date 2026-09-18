@@ -182,3 +182,68 @@ a:focus-visible {
     transition: none;
   }
 }
+
+.back-link {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 2.5rem;
+}
+
+.detail-hero h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 1rem;
+}
+
+.detail-hero .hero-summary {
+  max-width: 60ch;
+  margin-bottom: 1rem;
+}
+
+.detail-hero .project-tech {
+  margin-bottom: 1.25rem;
+}
+
+.repo-note {
+  font-family: var(--mono);
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.project-detail-link {
+  display: inline-block;
+  margin-top: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.8rem;
+}
+
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.story h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 0.75rem;
+}
+
+.story p {
+  margin: 0 0 0.6rem;
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+.story p strong {
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
