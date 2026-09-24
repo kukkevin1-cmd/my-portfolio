@@ -2,7 +2,7 @@
 
 My personal portfolio site, built with React and hosted on AWS Amplify.
 
-**Live site:** _add your Amplify URL here after deploying_
+**Live site:** https://main.d15em0inq3mz4a.amplifyapp.com
 
 ## Stack
 
