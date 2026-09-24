@@ -64,11 +64,49 @@ a:focus-visible {
   margin: 0 0 1.75rem;
 }
 
-.hero-links {
+.hero-actions {
   display: flex;
-  gap: 1.25rem;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
   font-family: var(--mono);
-  font-size: 0.875rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  background: #fff;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  border-color: var(--accent);
+}
+
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: #1f3937;
+  color: #fff;
+}
+
+.hero-email {
+  margin-left: 0.4rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
 }
 
 .section {
@@ -177,40 +215,41 @@ a:focus-visible {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  a {
-    transition: none;
-  }
+
+/* ---------- Project cards ---------- */
+
+.project {
+  position: relative;
+  margin: 0 -1rem;
+  padding: 1rem;
+  border-radius: 10px;
+  transition: background 0.15s ease;
 }
 
-.back-link {
-  display: inline-block;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--muted);
-  margin-bottom: 2.5rem;
+.project:hover,
+.project:focus-within {
+  background: #f1efea;
 }
 
-.detail-hero h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin: 0 0 1rem;
+.project-link {
+  text-decoration: none;
 }
 
-.detail-hero .hero-summary {
-  max-width: 60ch;
-  margin-bottom: 1rem;
+/* Stretch the title link over the whole card so the card is one click target. */
+.project-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
 }
 
-.detail-hero .project-tech {
-  margin-bottom: 1.25rem;
+.project-link:focus-visible {
+  outline: none;
 }
 
-.repo-note {
-  font-family: var(--mono);
-  font-size: 0.875rem;
-  color: var(--muted);
+.project-link:focus-visible::after {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .project-detail-link {
@@ -218,32 +257,233 @@ a:focus-visible {
   margin-top: 0.6rem;
   font-family: var(--mono);
   font-size: 0.8rem;
+  color: var(--accent);
+}
+
+.not-found {
+  margin-top: 2rem;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ---------- Project modal ---------- */
+
+body:has(.modal[open]) {
+  overflow: hidden;
+}
+
+.modal {
+  width: min(760px, calc(100vw - 2rem));
+  max-height: calc(100dvh - 3rem);
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+
+.modal::backdrop {
+  background: rgba(20, 20, 20, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.modal[open] {
+  animation: modal-in 0.18s ease-out;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.modal-panel {
+  position: relative;
+  padding: 2.25rem 2.25rem 2.5rem;
+}
+
+.modal-close {
+  position: sticky;
+  top: 0;
+  float: right;
+  margin: -1rem -1rem 0 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
+}
+
+.modal-header h2 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0.35rem 0 0.9rem;
+}
+
+.modal-intro {
+  font-size: 1rem;
+  line-height: 1.65;
+  margin: 0 0 0.9rem;
+}
+
+.modal-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.1rem;
+}
+
+.repo-note {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+  margin: 1.75rem 0 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.stat dd {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.stat dt {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+
+.modal-images {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
+}
+
+.modal-images.count-2 {
+  grid-template-columns: 1fr 1fr;
+  align-items: start;
+}
+
+.modal-images img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  display: block;
+}
+
+.modal-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--rule);
+}
+
+.modal-section-title {
+  font-size: 0.8rem;
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--muted);
+  margin: 0 0 1.25rem;
 }
 
 .story-list {
   display: flex;
   flex-direction: column;
-  gap: 2.5rem;
+  gap: 1.75rem;
 }
 
-.story h3 {
-  font-size: 1.05rem;
+.story h4 {
+  font-size: 1rem;
   font-weight: 600;
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.5rem;
 }
 
 .story p {
   margin: 0 0 0.6rem;
   line-height: 1.65;
-  max-width: 62ch;
 }
 
 .story p strong {
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 0.8rem;
-  color: var(--muted);
   display: block;
   margin-bottom: 0.15rem;
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.75rem;
+  color: var(--muted);
 }
 
+@media (max-width: 520px) {
+  .modal {
+    width: 100vw;
+    max-width: 100vw;
+    max-height: 100dvh;
+    height: 100dvh;
+    border-radius: 0;
+    border: 0;
+  }
+
+  .modal-panel {
+    padding: 1.75rem 1.25rem 2.5rem;
+  }
+
+  .modal-close {
+    margin: -0.75rem -0.25rem 0 0;
+  }
+
+  .modal-images.count-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-email {
+    margin-left: 0;
+    flex-basis: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a,
+  .btn,
+  .project {
+    transition: none;
+  }
+
+  .modal[open] {
+    animation: none;
+  }
+}

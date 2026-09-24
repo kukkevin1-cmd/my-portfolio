@@ -1,13 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { projects } from "../data/projects";
+import ProjectModal from "../components/ProjectModal";
 
 const skills = {
   Languages: ["Java", "Python", "JavaScript", "TypeScript", "SQL", "C", "PHP"],
-  "Cloud & Tools": ["AWS Amplify", "S3", "Lambda", "Git", "Docker", "React", "Node.js"],
-  "AI Tools": ["Claude Code"],
+  "Web & Backend": ["React", "Next.js", "Node.js", "Express", "WebRTC", "Socket.IO", "PostgreSQL"],
+  "Testing & Tools": ["pytest", "Mocha", "k6", "Playwright", "GitHub Actions", "Git", "Docker"],
+  Cloud: ["AWS Amplify", "S3", "Lambda"],
+  AI: ["Claude API (tool use)", "Claude Code"],
 };
 
+const RESUME_URL =
+  "https://docs.google.com/document/d/1pxeve3czkYwrdacVpOXUw0izdiAA8gMpgOrGvHQk77k/edit?usp=sharing";
+
 function Home() {
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const openProject = slug ? projects.find((p) => p.slug === slug) : null;
+
   return (
     <div className="page">
       <header className="hero">
@@ -18,37 +28,37 @@ function Home() {
           Currently contributing to RentTape, a rental price-tracking platform, and studying
           Computer Science with a minor in Mathematics.
         </p>
-        <div className="hero-links">
-          <a href="mailto:kukkevin1@gmail.com">kukkevin1@gmail.com</a>
-          <a href="https://github.com/kukkevin1-cmd" target="_blank" rel="noreferrer">
-            GitHub
+        <nav className="hero-actions" aria-label="Profile links">
+          <a className="btn btn-primary" href={RESUME_URL} target="_blank" rel="noreferrer">
+            Resume
           </a>
           <a
+            className="btn"
             href="https://www.linkedin.com/in/kevin-kuk-a7391422a/"
             target="_blank"
             rel="noreferrer"
           >
             LinkedIn
           </a>
-        </div>
+          <a className="btn" href="https://github.com/kukkevin1-cmd" target="_blank" rel="noreferrer">
+            GitHub
+          </a>
+          <a className="hero-email" href="mailto:kukkevin1@gmail.com">
+            kukkevin1@gmail.com
+          </a>
+        </nav>
       </header>
 
       <section className="section">
         <h2>Projects</h2>
         <ul className="project-list">
           {projects.map((p) => (
-            <li key={p.name} className="project">
+            <li key={p.slug} className="project">
               <div className="project-heading">
                 <h3>
-                  {p.slug ? (
-                    <Link to={`/projects/${p.slug}`}>{p.name}</Link>
-                  ) : p.link ? (
-                    <a href={p.link} target="_blank" rel="noreferrer">
-                      {p.name}
-                    </a>
-                  ) : (
-                    p.name
-                  )}
+                  <Link className="project-link" to={`/projects/${p.slug}`}>
+                    {p.name}
+                  </Link>
                 </h3>
                 <span className="project-meta">
                   {p.role} · {p.year}
@@ -56,11 +66,9 @@ function Home() {
               </div>
               <p className="project-description">{p.description}</p>
               <p className="project-tech">{p.tech.join(", ")}</p>
-              {p.slug && (
-                <Link className="project-detail-link" to={`/projects/${p.slug}`}>
-                  Read the case study
-                </Link>
-              )}
+              <span className="project-detail-link" aria-hidden="true">
+                View details →
+              </span>
             </li>
           ))}
         </ul>
@@ -81,6 +89,15 @@ function Home() {
       <footer className="footer">
         <p>Built with React, hosted on AWS Amplify.</p>
       </footer>
+
+      {openProject && (
+        <ProjectModal project={openProject} onClose={() => navigate("/", { preventScrollReset: true })} />
+      )}
+      {slug && !openProject && (
+        <p className="not-found" role="status">
+          That project doesn't exist. <Link to="/">Back to all projects</Link>
+        </p>
+      )}
     </div>
   );
 }
