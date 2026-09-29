@@ -95,6 +95,39 @@ export const projects = [
     },
   },
   {
+    slug: "obs-preservice",
+    name: "OBS Pre-Service Automation",
+    year: "2026",
+    role: "Church media team",
+    description:
+      "A Python tool that checks our church live-stream setup in OBS (scenes, muted inputs, live audio signal) and only goes live when everything passes, then starts recording, streaming, and scene changes on schedule.",
+    tech: ["Python", "OBS WebSocket API", "obsws-python"],
+    // TODO: add { label: "GitHub", url: "https://github.com/kukkevin1-cmd/obs-preservice" } once the repo is public.
+    links: [],
+    detail: {
+      intro:
+        "I lead a small volunteer media team that streams our church's weekly services on YouTube with OBS. Every week someone had to click through the same pre-service steps by hand, and the costly mistakes were the quiet ones: a muted mixer input or a missing scene you only notice after going live. I wrote a script that runs those checks and steps through OBS's built-in WebSocket API instead.",
+      highlights: [
+        {
+          title: "Preflight checks that can stop a bad stream",
+          body: "Before anything goes live, the script confirms the required scenes exist, the mixer inputs aren't muted or faded all the way down, a stream key is configured, and each audio input is actually carrying sound, by listening to OBS's live level meters for a few seconds. If any check fails it stops and says exactly what's wrong, instead of starting a silent stream.",
+        },
+        {
+          title: "One command for the whole routine",
+          body: "After the checks pass it switches to the pre-service scene, starts recording, starts the stream (right away or at a scheduled time with --start-at), confirms the stream is live, and switches to the main scene when the service begins. It reconnects to OBS after long waits in case the PC slept or OBS restarted.",
+        },
+        {
+          title: "Built for volunteers, not just for me",
+          body: "--list prints the exact scene and source names to copy into the config, --dry-run runs every check without changing anything, and error messages point to the fix (for example, where to turn on the WebSocket server). The OBS password lives in a git-ignored config file and is never logged.",
+        },
+        {
+          title: "Tested without the church PC, measured on it",
+          body: "A small fake OBS WebSocket server lets me test the healthy, muted, and no-signal cases on my own laptop. Every real run appends a row to logs/runs.csv with the time to go live and any problems caught, so setup time before and after can be compared with real numbers.",
+        },
+      ],
+    },
+  },
+  {
     slug: "zoom-clone",
     name: "Zoom Clone",
     year: "2023 · rebuilt 2026",
